@@ -1,11 +1,11 @@
 [package]
 edition = "2021"
-name = "mag_esp_hal"
+name = "magtag_esp_hal"
 rust-version = "1.88"
 version = "0.1.0"
 
 [[bin]]
-name = "mag_esp_hal"
+name = "magtag_esp_hal"
 path = "./src/bin/main.rs"
 
 [dependencies]
@@ -21,6 +21,7 @@ esp-backtrace = { version = "0.17.0", features = [
 ] }
 esp-println = { version = "0.15.0", features = ["esp32s2", "log-04"] }
 ssd1680 = {path="../scottcusa/ssd1680"}
+# ssd1680 = {git="https://github.com/ScottCUSA/ssd1680.git" , branch="main" }
 embedded-graphics = "0.8.1"
 embedded-hal-bus = "0.3.0"
 log = "0.4.28"
@@ -29,6 +30,10 @@ log = "0.4.28"
 # Rust debug is too slow.
 # For debug builds always builds with some optimization
 opt-level = "s"
+debug = 2
+
+[profile.dev.package."*"]
+debug = false
 
 [profile.release]
 codegen-units = 1        # LLVM can perform better optimizations using a single thread
