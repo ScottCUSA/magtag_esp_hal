@@ -1,0 +1,40 @@
+[package]
+edition = "2021"
+name = "mag_esp_hal"
+rust-version = "1.88"
+version = "0.1.0"
+
+[[bin]]
+name = "mag_esp_hal"
+path = "./src/bin/main.rs"
+
+[dependencies]
+esp-bootloader-esp-idf = { version = "0.2.0", features = ["esp32s2"] }
+esp-hal = { version = "=1.0.0-rc.0", features = ["unstable", "esp32s2"] }
+
+critical-section = "1.2.0"
+esp-backtrace = { version = "0.17.0", features = [
+    "esp32s2",
+    "println",
+    "panic-handler",
+    "exception-handler",
+] }
+esp-println = { version = "0.15.0", features = ["esp32s2", "log-04"] }
+ssd1680 = {path="../scottcusa/ssd1680"}
+embedded-graphics = "0.8.1"
+embedded-hal-bus = "0.3.0"
+log = "0.4.28"
+
+[profile.dev]
+# Rust debug is too slow.
+# For debug builds always builds with some optimization
+opt-level = "s"
+
+[profile.release]
+codegen-units = 1        # LLVM can perform better optimizations using a single thread
+debug = 2
+debug-assertions = false
+incremental = false
+lto = 'fat'
+opt-level = 's'
+overflow-checks = false
