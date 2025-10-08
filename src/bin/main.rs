@@ -47,28 +47,26 @@ fn main() -> ! {
     let cs = Output::new(peripherals.GPIO8, Level::High, OutputConfig::default());
     let spi_device = ExclusiveDevice::new(spi, cs, Delay::new()).unwrap();
 
-    // Create display with SPI interface
+    // Create epaper display with SPI interface
     let mut epd = ThinkInk2in9Mono::new(spi_device, busy, dc, rst).unwrap();
-    let mut display = Display2in9::new();
-
     // Initialize the display
     epd.begin(&mut Delay::new()).unwrap();
 
+    // setup graphics buffer
+    let mut display_buffer = Display2in9::new();
     info!("Draw a rectangle");
     Rectangle::new(Point::new(50, 50), Size::new(25, 25))
         .into_styled(PrimitiveStyle::with_fill(Black))
-        .draw(&mut display)
+        .draw(&mut display_buffer)
         .unwrap();
-
     info!("Draw some text");
     let text_style = embedded_graphics::mono_font::MonoTextStyle::new(
         &embedded_graphics::mono_font::ascii::FONT_7X14,
         Black,
     );
     embedded_graphics::text::Text::new("Hello from Rust!", Point::new(10, 15), text_style)
-        .draw(&mut display)
+        .draw(&mut display_buffer)
         .unwrap();
-
     info!("Draw a bitmap");
     // Create an ImageRaw from raw bytes (1bpp) and draw it; adjust the width to match the bitmap width
     let raw = embedded_graphics::image::ImageRaw::<embedded_graphics::pixelcolor::BinaryColor>::new(
@@ -76,19 +74,17 @@ fn main() -> ! {
         100,
     );
     embedded_graphics::image::Image::new(&raw, Point::new(100, 20))
-        .draw(&mut display)
+        .draw(&mut display_buffer)
         .unwrap();
-
     info!("Draw a line");
     let line = embedded_graphics::primitives::Line::new(Point::new(200, 20), Point::new(240, 107));
     line.into_styled(PrimitiveStyle::with_stroke(Black, 1))
-        .draw(&mut display)
+        .draw(&mut display_buffer)
         .unwrap();
 
     info!("Display frame");
-
     // Transfer and display the buffer on the display
-    epd.update_and_display(display.buffer(), &mut Delay::new())
+    epd.update_and_display(display_buffer.buffer(), &mut Delay::new())
         .unwrap();
 
     // Done

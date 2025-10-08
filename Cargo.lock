@@ -1124,6 +1124,7 @@ dependencies = [
 [[package]]
 name = "ssd1680"
 version = "0.2.0"
+source = "git+https://github.com/ScottCUSA/ssd1680.git?branch=main#a0304988a666369b9baf9e4968fd8f7bc51042cf"
 dependencies = [
  "display-interface",
  "embedded-graphics",

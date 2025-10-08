@@ -20,8 +20,8 @@ esp-backtrace = { version = "0.17.0", features = [
     "exception-handler",
 ] }
 esp-println = { version = "0.15.0", features = ["esp32s2", "log-04"] }
-ssd1680 = {path="../scottcusa/ssd1680"}
-# ssd1680 = {git="https://github.com/ScottCUSA/ssd1680.git" , branch="main" }
+# ssd1680 = {path="../scottcusa/ssd1680"}
+ssd1680 = {git="https://github.com/ScottCUSA/ssd1680.git" , branch="main" }
 embedded-graphics = "0.8.1"
 embedded-hal-bus = "0.3.0"
 log = "0.4.28"
