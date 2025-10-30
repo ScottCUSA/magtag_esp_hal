@@ -215,7 +215,6 @@ fn main() -> ! {
         .unwrap();
 
     info!("Display frame");
-
     // Transfer and display the buffer on the display
     epd.update_gray2_and_display(
         display_gray.high_buffer(),

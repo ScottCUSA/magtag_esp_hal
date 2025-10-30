@@ -11,9 +11,7 @@ path = "./src/bin/main.rs"
 [dependencies]
 ssd1680 = {git="https://github.com/ScottCUSA/ssd1680.git" , branch="main" }
 critical-section = "1.2.0"
-embassy-executor = "0.9.1"
-embassy-net = { version = "0.7.1", features = ["dhcpv4", "medium-ethernet", "udp", "dns"] }
-embassy-time = "0.5.0"
+# ssd1680 = {path="../scottcusa/ssd1680"}
 embedded-graphics = "0.8.1"
 embedded-hal-bus = "0.3.0"
 embedded-io = {version="0.7.1", default-features = false}
@@ -29,7 +27,6 @@ jiff = { version = "0.2.15", default-features = false, features = ["static"] }
 log = "0.4.28"
 smoltcp = { version = "0.12.0", default-features = false, features = ["medium-ethernet", "socket-raw"] }
 sntpc = { version = "0.6.1", default-features = false, features = ["embassy-socket"] }
-# ssd1680 = {path="../scottcusa/ssd1680"}
 static_cell = "2.1.1"
 blocking-network-stack = { path = "blocking_network_stack"}
 
