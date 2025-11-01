@@ -87,12 +87,12 @@ fn main() -> ! {
     controller.start().unwrap();
     info!("is wifi started: {:?}", controller.is_started());
 
-    // info!("Start Wifi Scan");
-    // let scan_config = ScanConfig::default().with_max(10);
-    // let res = controller.scan_with_config(scan_config).unwrap();
-    // for ap in res {
-    //     info!("{:?}", ap);
-    // }
+    info!("Start Wifi Scan");
+    let scan_config = ScanConfig::default().with_max(10);
+    let res = controller.scan_with_config(scan_config).unwrap();
+    for ap in res {
+        info!("{:?}", ap);
+    }
 
     info!("{:?}", controller.capabilities());
     info!("wifi_connect {:?}", controller.connect());
@@ -225,9 +225,7 @@ fn main() -> ! {
 
     // Done
     info!("Done");
-    let delay = Delay::new();
     loop {
-        delay.delay_millis(1);
         let deadline = time::Instant::now() + Duration::from_secs(5);
         while time::Instant::now() < deadline {
             socket.work();
