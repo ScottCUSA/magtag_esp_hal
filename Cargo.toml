@@ -22,13 +22,22 @@ esp-hal = { version = "1.0.0", features = ["unstable","esp32s2"] }
 esp-println = { version = "0.16.1", features = ["esp32s2", "log-04"] }
 esp-radio = { version = "0.17.0", features = ["esp32s2", "log-04", "smoltcp", "unstable", "wifi"] }
 esp-rtos = { version = "0.2.0", features = ["esp-radio", "embassy", "log-04", "esp32s2"] }
-heapless = "0.9.1"
-jiff = { version = "0.2.15", default-features = false, features = ["static"] }
+heapless = { version = "0.9.2", features = ["serde"] }
+jiff = { version = "0.2.16", default-features = false, features = ["static"] }
 log = "0.4.28"
 smoltcp = { version = "0.12.0", default-features = false, features = ["medium-ethernet", "socket-raw"] }
+
 sntpc = { version = "0.6.1", default-features = false, features = ["embassy-socket"] }
 static_cell = "2.1.1"
-blocking-network-stack = { path = "blocking_network_stack"}
+blocking-network-stack = { path = "vendor/blocking_network_stack"}
+
+# JSON parsing in no_std
+serde = { version = "1.0", features = ["derive"], default-features=false }
+serde-json-core = "0.6"
+
+# Text layout for embedded-graphics (wrapping, alignment, textbox)
+embedded-text = "0.7"
+once_cell = { version = "1.21.3", features = ["critical-section"], default-features = false }
 
 [profile.dev]
 # Rust debug is too slow.
@@ -47,6 +56,3 @@ incremental = false
 lto = 'fat'
 opt-level = 's'
 overflow-checks = false
-
-[workspace]
-resolver = "3"
